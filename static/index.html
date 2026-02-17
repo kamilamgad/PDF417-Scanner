@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDF417 Phone Scanner</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>PDF417 Phone Scanner</h1>
+    <p class="subtitle">US driver license barcode scanner. Server-side decoding only.</p>
+
+    <section class="panel">
+      <div class="row">
+        <button id="startCameraBtn">Start Camera</button>
+        <button id="stopCameraBtn" class="muted">Stop Camera</button>
+        <button id="torchBtn" class="muted hidden">Torch Off</button>
+        <button id="scanBurstBtn">Scan Burst</button>
+      </div>
+      <div class="row">
+        <label class="check">
+          <input id="autoScanToggle" type="checkbox" checked />
+          Auto retry until decode
+        </label>
+      </div>
+      <div class="row">
+        <label for="burstCount">Burst frames</label>
+        <input id="burstCount" type="number" min="3" max="10" value="6" />
+        <label for="burstGap">Gap ms</label>
+        <input id="burstGap" type="number" min="60" max="500" value="110" />
+      </div>
+    </section>
+
+    <section class="panel video-panel">
+      <video id="video" autoplay playsinline muted></video>
+      <div id="cardGuide" class="card-guide" aria-hidden="true">
+        <div class="barcode-zone"></div>
+      </div>
+      <p class="guide-help">Align the license inside the frame. Keep barcode side sharp and steady.</p>
+      <canvas id="canvas" class="hidden"></canvas>
+      <div id="status" class="status">Idle.</div>
+      <ul id="tips" class="tips"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Fallback Capture (if live camera is blocked)</h2>
+      <input id="captureInput" type="file" accept="image/*" capture="environment" />
+    </section>
+
+    <section id="successPanel" class="panel success hidden">
+      <h2>Success</h2>
+      <p>PDF417 decoded.</p>
+      <pre id="resultJson"></pre>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

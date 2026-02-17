@@ -1,0 +1,23 @@
+[project]
+name = "pdf417-phone-scanner"
+version = "0.1.0"
+description = "Standalone phone-friendly PDF417 scanner using FastAPI + zxing-cpp"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi==0.115.8",
+  "uvicorn[standard]==0.34.0",
+  "python-multipart==0.0.20",
+  "pydantic==2.10.6",
+  "opencv-python==4.11.0.86",
+  "numpy==2.2.3",
+  "zxing-cpp==2.2.0",
+  "pyzbar==0.1.9"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.3.4"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

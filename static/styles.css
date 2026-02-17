@@ -1,0 +1,173 @@
+﻿:root {
+  color-scheme: light;
+  --bg: #f2f5f7;
+  --panel: #ffffff;
+  --text: #182128;
+  --muted: #5f6c75;
+  --accent: #0e7a6d;
+  --danger: #b42318;
+  --success: #0b6b2b;
+  --border: #d5dde3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #d8eef0 0%, var(--bg) 55%);
+}
+
+.app {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.subtitle {
+  margin: 6px 0 12px;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.video-panel {
+  position: relative;
+}
+
+video {
+  width: 100%;
+  min-height: 280px;
+  background: #000;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.card-guide {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(86%, 520px);
+  aspect-ratio: 1.586;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.28), 0 0 0 2px rgba(20, 26, 34, 0.45) inset;
+  pointer-events: none;
+}
+
+.barcode-zone {
+  position: absolute;
+  right: 4%;
+  top: 8%;
+  width: 34%;
+  height: 84%;
+  border: 1px dashed rgba(40, 240, 196, 0.95);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(40, 240, 196, 0.1) 0%, rgba(40, 240, 196, 0.04) 100%);
+}
+
+.guide-help {
+  margin: 8px 0 0;
+  font-size: 0.86rem;
+  color: #e5f6f2;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+button,
+input[type="number"] {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.95rem;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.muted {
+  background: #6a7680;
+}
+
+.check {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.status {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #e6f4ef;
+  color: #0b4d3f;
+}
+
+.status.error {
+  background: #fdecec;
+  color: var(--danger);
+}
+
+.tips {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.success {
+  border-color: #a9d8b8;
+  background: #e9f7ee;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #e5e7eb;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .card-guide {
+    width: 92%;
+    top: 44%;
+  }
+}

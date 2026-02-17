@@ -1,0 +1,18 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+
+# Virtual env
+.venv/
+
+# Local runtime output
+*.log
+
+# Local TLS artifacts
+certs/
+
+# OS
+Thumbs.db
+.DS_Store
