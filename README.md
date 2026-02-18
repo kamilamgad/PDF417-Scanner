@@ -76,10 +76,12 @@ Reference: MDN `getUserMedia` secure-context requirement.
 
 ## Best-known methods used here
 
-1. Decode with a native library (`zxing-cpp`) on the backend, not in browser JS.
-2. Restrict to PDF417 and run multi-pass transforms (rotate, crop, contrast, threshold).
-3. Use burst capture from live preview to beat motion blur/focus variance.
+1. Capture-first workflow: burst frames are quality-ranked (sharpness, glare, exposure, barcode texture) before upload.
+2. Decode with a native library (`zxing-cpp`) on the backend, not in browser JS.
+3. Use a simpler deterministic transform set (rotate, strip crops, CLAHE/OTSU) to keep behavior stable.
 4. Keep barcode large in frame and high pixel density (critical for dense PDF417).
+5. Quality gate is calibrated against `C:\Users\moham\Downloads\workingscan.jpg` and rejects low-quality captures early.
+6. Default mode is `strict` quality gating to avoid overworking decode on weak captures; switch to `balanced` for older phone cameras.
 
 ## Decoder landscape (practical)
 
