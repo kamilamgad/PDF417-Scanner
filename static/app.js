@@ -9,6 +9,7 @@ const resultGrid = document.getElementById("resultGrid");
 const successPanel = document.getElementById("successPanel");
 const copyJsonBtn = document.getElementById("copyJsonBtn");
 const copySummaryBtn = document.getElementById("copySummaryBtn");
+const clearLocalBtn = document.getElementById("clearLocalBtn");
 
 const stopCameraBtn = document.getElementById("stopCameraBtn");
 const torchBtn = document.getElementById("torchBtn");
@@ -293,6 +294,24 @@ function saveLearningProfile() {
   } catch {
     // ignore storage failures
   }
+}
+
+function clearLocalSettings() {
+  try {
+    localStorage.removeItem(LAST_SUCCESS_PROFILE_KEY);
+    localStorage.removeItem(LEARNING_PROFILE_KEY);
+  } catch {
+    // ignore storage failures
+  }
+  learningProfile = {
+    successfulFrameTypes: { full: 0, guide: 0, strip: 0 },
+    successfulTransforms: {},
+    preferredTransformHint: "",
+  };
+  runtimeQualityMode = QUALITY_MODE;
+  burstCountInput.value = "6";
+  burstGapInput.value = "110";
+  setStatus("Local capture settings cleared.");
 }
 
 function frameTypeWeight(type) {
@@ -1054,6 +1073,10 @@ captureInput.addEventListener("change", async (event) => {
   } catch (err) {
     setStatus(`Upload error: ${getErrorMessage(err)}`, true);
   }
+});
+
+clearLocalBtn.addEventListener("click", () => {
+  clearLocalSettings();
 });
 
 applyLastSuccessProfile();

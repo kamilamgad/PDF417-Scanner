@@ -33,6 +33,10 @@
         <h2>Output</h2>
         <p>The result panel gives you readable customer fields, JSON, and a profile summary that is easier to paste into a CRM or intake record.</p>
       </article>
+      <article>
+        <h2>Privacy</h2>
+        <p>Use only with customer consent. Images are processed for transient decode, and customer information should be retained only in the downstream system that actually needs it.</p>
+      </article>
     </section>
 
     <section class="panel">
@@ -44,6 +48,7 @@
         <button id="scanBurstBtn">Scan ID</button>
         <button id="stopCameraBtn" class="muted">Stop Camera</button>
         <button id="torchBtn" class="muted hidden">Torch Off</button>
+        <button id="clearLocalBtn" class="muted">Clear Local Settings</button>
       </div>
       <div class="row">
         <label class="check">
@@ -86,7 +91,7 @@
       <div class="success-top">
         <div>
           <h2>Decoded Customer Data</h2>
-          <p class="panel-copy">Use the formatted summary for intake notes or copy the structured JSON for system integration.</p>
+          <p class="panel-copy">Use the formatted summary for intake notes or copy the structured JSON for system integration. Delete data from local workflows when it is no longer needed.</p>
         </div>
         <div class="action-row">
           <button id="copySummaryBtn" class="ghost">Copy Profile Summary</button>

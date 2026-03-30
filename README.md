@@ -40,6 +40,18 @@ This tool is aimed at speeding up customer onboarding and record creation by:
 
 Instead of keying in names, address details, birth date, and license information by hand, the scanner extracts that data directly from the barcode payload.
 
+## Privacy and Safe Handling
+
+This project is intended for consent-based intake workflows where the customer is providing their ID for a legitimate business purpose.
+
+- scan only with customer knowledge and consent
+- process images for transient decode rather than long-term image storage
+- keep retained customer information limited to the downstream system that actually needs it
+- delete temporary exports, copied notes, or local files when they are no longer needed
+- avoid storing raw barcode payloads or ID images outside the controlled business workflow
+
+The browser UI stores only non-sensitive local capture preferences and learning hints. It does not intentionally persist decoded customer fields in local storage, and the UI includes a `Clear Local Settings` control to remove those local preferences.
+
 ## What It Does
 
 - captures images from a phone camera workflow
@@ -121,9 +133,10 @@ The decode responses are structured so the output can be reused in downstream wo
 
 ## Privacy
 
-- uploaded images are processed locally
-- the app is intended for transient decode and review, not long-term storage of ID images
+- uploaded images are processed for transient decode
+- the app is intended for local review, not long-term storage of ID images
 - raw customer data should only be retained in the downstream system that actually needs it, such as a CRM or intake platform
+- local capture settings can be cleared from the UI when the session is complete
 
 ## Notes
 
