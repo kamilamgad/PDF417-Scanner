@@ -6,6 +6,29 @@ The project was built to solve a practical intake problem: entering customer inf
 
 It was designed as a faster intake workflow for CRM use, where the decoded output could be used to create or populate customer profiles with far less manual typing.
 
+## Quick Try
+
+The fastest local test path is:
+
+```powershell
+cd C:\Users\LocalAdmin1\PDF417-Scanner
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e .
+uvicorn app.main:app --host 0.0.0.0 --port 8012
+```
+
+Then open:
+
+- `http://localhost:8012` on desktop
+- `http://<YOUR_PC_LAN_IP>:8012` from a phone on the same Wi-Fi
+
+If you want live phone camera support in a more reliable browser context, run:
+
+```powershell
+.\run_https.ps1
+```
+
 ## Business Purpose
 
 This tool is aimed at speeding up customer onboarding and record creation by:
@@ -24,6 +47,7 @@ Instead of keying in names, address details, birth date, and license information
 - decodes PDF417 barcodes using backend-native libraries
 - parses AAMVA fields into structured output
 - shows a result screen with the decoded customer information
+- provides profile-ready output that can be reused in intake and CRM workflows
 
 ## Stack
 
@@ -61,14 +85,6 @@ pip install --upgrade pip
 pip install -e .
 uvicorn app.main:app --host 0.0.0.0 --port 8012
 ```
-
-Open on desktop:
-
-- `http://localhost:8012`
-
-Open on phone on the same Wi-Fi network:
-
-- `http://<YOUR_PC_LAN_IP>:8012`
 
 ## One-Click HTTPS
 
