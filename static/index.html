@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -8,14 +8,42 @@
 </head>
 <body>
   <main class="app">
-    <h1>PDF417 Phone Scanner</h1>
-    <p class="subtitle">US driver license barcode scanner. Server-side decoding only.</p>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Phone-First Intake Tool</p>
+        <h1>PDF417 Phone Scanner</h1>
+        <p class="subtitle">Capture US ID barcodes from a phone camera, decode them on the backend, and turn the result into profile-ready customer data.</p>
+      </div>
+      <div class="hero-card">
+        <p class="hero-label">Built for</p>
+        <ul class="hero-list">
+          <li>faster intake</li>
+          <li>less manual typing</li>
+          <li>quick CRM profile creation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel info-grid">
+      <article>
+        <h2>Workflow</h2>
+        <p>Open the app on a phone, capture the barcode side of the ID, and return structured fields that can be reused in downstream systems.</p>
+      </article>
+      <article>
+        <h2>Output</h2>
+        <p>The result panel gives you readable customer fields, JSON, and a profile summary that is easier to paste into a CRM or intake record.</p>
+      </article>
+    </section>
 
     <section class="panel">
-      <div class="row">
+      <div class="panel-header">
+        <h2>Capture Controls</h2>
+        <p class="panel-copy">Use burst capture for the best chance of decoding a sharp PDF417 frame.</p>
+      </div>
+      <div class="row controls-row">
+        <button id="scanBurstBtn">Scan ID</button>
         <button id="stopCameraBtn" class="muted">Stop Camera</button>
         <button id="torchBtn" class="muted hidden">Torch Off</button>
-        <button id="scanBurstBtn">Scan id</button>
       </div>
       <div class="row">
         <label class="check">
@@ -23,7 +51,7 @@
           Auto retry until decode
         </label>
       </div>
-      <div class="row">
+      <div class="row settings-row">
         <label for="burstCount">Burst frames</label>
         <input id="burstCount" type="number" min="3" max="10" value="6" />
         <label for="burstGap">Gap ms</label>
@@ -32,6 +60,10 @@
     </section>
 
     <section class="panel video-panel">
+      <div class="panel-header">
+        <h2>Live Capture</h2>
+        <p class="panel-copy">Keep the barcode side inside the guide and hold steady long enough for autofocus to settle.</p>
+      </div>
       <video id="video" autoplay playsinline muted></video>
       <div id="cardGuide" class="card-guide" aria-hidden="true">
         <div class="barcode-zone"></div>
@@ -43,14 +75,35 @@
     </section>
 
     <section class="panel">
-      <h2>Fallback Capture (if live camera is blocked)</h2>
+      <div class="panel-header">
+        <h2>Fallback Capture</h2>
+        <p class="panel-copy">If live camera access is blocked, use the device camera upload flow instead.</p>
+      </div>
       <input id="captureInput" type="file" accept="image/*" capture="environment" />
     </section>
 
     <section id="successPanel" class="panel success hidden">
-      <h2>Success</h2>
-      <p>PDF417 decoded.</p>
-      <pre id="resultJson"></pre>
+      <div class="success-top">
+        <div>
+          <h2>Decoded Customer Data</h2>
+          <p class="panel-copy">Use the formatted summary for intake notes or copy the structured JSON for system integration.</p>
+        </div>
+        <div class="action-row">
+          <button id="copySummaryBtn" class="ghost">Copy Profile Summary</button>
+          <button id="copyJsonBtn" class="ghost">Copy JSON</button>
+        </div>
+      </div>
+      <div id="resultGrid" class="result-grid"></div>
+      <div class="result-columns">
+        <article class="result-card">
+          <h3>Profile Summary</h3>
+          <pre id="resultSummary"></pre>
+        </article>
+        <article class="result-card">
+          <h3>Structured JSON</h3>
+          <pre id="resultJson"></pre>
+        </article>
+      </div>
     </section>
   </main>
 

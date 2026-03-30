@@ -1,7 +1,7 @@
 [project]
 name = "pdf417-phone-scanner"
-version = "0.1.0"
-description = "Standalone phone-friendly PDF417 scanner using FastAPI + zxing-cpp"
+version = "0.2.0"
+description = "Phone-first PDF417 intake scanner for extracting structured ID data with FastAPI and zxing-cpp"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi==0.115.8",

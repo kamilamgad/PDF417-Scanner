@@ -4,7 +4,11 @@ const cardGuide = document.getElementById("cardGuide");
 const statusEl = document.getElementById("status");
 const tipsEl = document.getElementById("tips");
 const resultJson = document.getElementById("resultJson");
+const resultSummary = document.getElementById("resultSummary");
+const resultGrid = document.getElementById("resultGrid");
 const successPanel = document.getElementById("successPanel");
+const copyJsonBtn = document.getElementById("copyJsonBtn");
+const copySummaryBtn = document.getElementById("copySummaryBtn");
 
 const stopCameraBtn = document.getElementById("stopCameraBtn");
 const torchBtn = document.getElementById("torchBtn");
@@ -45,6 +49,24 @@ let learningProfile = {
   successfulTransforms: {},
   preferredTransformHint: "",
 };
+
+const FIELD_LABELS = [
+  ["firstName", "First Name"],
+  ["middleName", "Middle Name"],
+  ["lastName", "Last Name"],
+  ["dateOfBirth", "Date of Birth"],
+  ["gender", "Gender"],
+  ["driverClass", "Driver Class"],
+  ["licenseNumber", "License Number"],
+  ["documentNumber", "Document Number"],
+  ["addressLine1", "Address Line 1"],
+  ["addressLine2", "Address Line 2"],
+  ["city", "City"],
+  ["state", "State"],
+  ["postalCode", "Postal Code"],
+  ["issueDate", "Issue Date"],
+  ["expirationDate", "Expiration Date"],
+];
 
 function setStatus(message, isError = false) {
   statusEl.textContent = message;
@@ -125,14 +147,74 @@ function buildQualityPrompt(candidates = []) {
   return { headline, tips: tips.slice(0, 3) };
 }
 
+function buildProfileSummary(fields = {}) {
+  const fullName = [fields.firstName, fields.middleName, fields.lastName].filter(Boolean).join(" ");
+  const cityStateZip = [fields.city, fields.state, fields.postalCode].filter(Boolean).join(", ").replace(", ,", ",");
+  const addressParts = [fields.addressLine1, fields.addressLine2, cityStateZip].filter(Boolean);
+
+  return [
+    fullName ? `Customer: ${fullName}` : "",
+    fields.dateOfBirth ? `Date of Birth: ${fields.dateOfBirth}` : "",
+    fields.licenseNumber ? `License Number: ${fields.licenseNumber}` : "",
+    fields.documentNumber ? `Document Number: ${fields.documentNumber}` : "",
+    addressParts.length ? `Address: ${addressParts.join(", ")}` : "",
+    fields.driverClass ? `Driver Class: ${fields.driverClass}` : "",
+    fields.issueDate ? `Issue Date: ${fields.issueDate}` : "",
+    fields.expirationDate ? `Expiration Date: ${fields.expirationDate}` : "",
+  ].filter(Boolean).join("\n");
+}
+
+function renderFieldGrid(fields = {}) {
+  resultGrid.innerHTML = "";
+  for (const [key, label] of FIELD_LABELS) {
+    const value = fields[key];
+    if (!value) continue;
+
+    const item = document.createElement("article");
+    item.className = "field-card";
+
+    const labelEl = document.createElement("span");
+    labelEl.className = "field-label";
+    labelEl.textContent = label;
+
+    const valueEl = document.createElement("strong");
+    valueEl.className = "field-value";
+    valueEl.textContent = value;
+
+    item.appendChild(labelEl);
+    item.appendChild(valueEl);
+    resultGrid.appendChild(item);
+  }
+}
+
+async function copyText(text, successMessage) {
+  try {
+    await navigator.clipboard.writeText(text);
+    setStatus(successMessage);
+  } catch {
+    setStatus("Copy failed. Use manual copy instead.", true);
+  }
+}
+
 function showSuccess(data) {
+  const fields = data.fields || {};
+  const jsonText = JSON.stringify(fields, null, 2);
+  const summaryText = buildProfileSummary(fields);
+
   successPanel.classList.remove("hidden");
-  resultJson.textContent = JSON.stringify(data.fields || {}, null, 2);
+  renderFieldGrid(fields);
+  resultJson.textContent = jsonText;
+  resultSummary.textContent = summaryText || "No profile summary available.";
+
+  copyJsonBtn.onclick = () => copyText(jsonText, "Structured JSON copied.");
+  copySummaryBtn.onclick = () => copyText(summaryText || jsonText, "Profile summary copied.");
 }
 
 function clearSuccess() {
   successPanel.classList.add("hidden");
   resultJson.textContent = "";
+  resultSummary.textContent = "";
+  resultGrid.innerHTML = "";
 }
 
 function getErrorMessage(err) {
