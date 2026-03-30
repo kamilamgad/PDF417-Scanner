@@ -131,6 +131,10 @@ The decode responses are structured so the output can be reused in downstream wo
 - deterministic transform passes for more stable behavior
 - AAMVA-aware parsing so the output is immediately more useful to intake systems
 
+## Dataset and Tuning Work
+
+To improve real-world decode reliability, I built a large set of fake driver's license barcode captures myself across bad lighting, blur, glare, distance, angle, and other imperfect phone-camera conditions. I used that dataset to tune the capture workflow, quality thresholds, retry behavior, and decode pipeline against the kinds of low-quality inputs that show up in real intake work.
+
 ## Privacy
 
 - uploaded images are processed for transient decode
